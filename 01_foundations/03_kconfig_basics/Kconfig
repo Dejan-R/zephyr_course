@@ -1,0 +1,21 @@
+mainmenu "Kconfig Basics"
+
+menu "Course settings"
+
+config COURSE_FEATURE
+    bool "Enable course feature"
+    default y
+    help
+      Enables the example application feature.
+
+config COURSE_REPEAT_COUNT
+    int "Repeat count"
+    range 1 5
+    default 3
+    depends on COURSE_FEATURE
+    help
+      Controls the number of messages printed when the feature is enabled.
+
+endmenu
+
+source "Kconfig.zephyr"

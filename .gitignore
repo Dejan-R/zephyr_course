@@ -1,0 +1,19 @@
+# Zephyr build directories
+build/
+build_*/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+
+# Python
+__pycache__/
+*.pyc
+
+# IDE / editor
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
