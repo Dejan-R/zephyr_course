@@ -1,0 +1,96 @@
+/*
+ILI9341	    ESP32 
+VCC	        3.3V
+GND	        GND
+SCK	        GPIO18
+MOSI	    GPIO23
+CS	        GPIO5
+DC	        GPIO21
+RST	        GPIO22
+LED	        3.3V (ili GPIO za kontrolu)
+
+XPT2046 (TOUCH) 
+T_CLK       GPIO18
+ T_DIN      GPIO23 
+ T_DO       GPIO19 
+ T_CS       GPIO4 
+ T_IRQ      GPIO25
+ SDO(MISO)  GPIO19
+  
+ */
+
+#include <zephyr/dt-bindings/gpio/gpio.h>
+#include <zephyr/dt-bindings/display/panel.h>
+
+/ {
+    chosen {
+        zephyr,display = &ili9341;
+        zephyr,touch = &xpt2046;
+    };
+
+    /* LVGL touchscreen input */
+    lvgl_pointer {
+        compatible = "zephyr,lvgl-pointer-input";
+        input = <&xpt2046>;
+    };
+
+    /* ILI9341 display interface */
+    mipi_dbi {
+        compatible = "zephyr,mipi-dbi-spi";
+        spi-dev = <&spi3>;
+
+        dc-gpios = <&gpio0 21 GPIO_ACTIVE_HIGH>;
+        reset-gpios = <&gpio0 22 GPIO_ACTIVE_LOW>;
+
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        ili9341: ili9341@0 {
+            compatible = "ilitek,ili9341";
+            reg = <0>;
+
+            mipi-max-frequency = <20000000>;
+            mipi-mode = "MIPI_DBI_MODE_SPI_4WIRE";
+
+            width = <240>;
+            height = <320>;
+
+            /* Landscape orientation */
+            rotation = <90>;
+            h-mirror;
+            /* RGB565 pixel format */
+            pixel-format = <PANEL_PIXEL_FORMAT_RGB_565>;
+        };
+    };
+};
+
+/* Shared SPI3 bus: display and touch controller */
+&spi3 {
+    status = "okay";
+
+    cs-gpios = <&gpio0 5 GPIO_ACTIVE_LOW>,
+               <&gpio0 4 GPIO_ACTIVE_LOW>;
+
+    clock-frequency = <20000000>;
+
+    /* XPT2046 resistive touchscreen */
+    xpt2046: xpt2046@1 {
+        compatible = "xptek,xpt2046";
+        reg = <1>;
+
+        spi-max-frequency = <1000000>;
+
+        int-gpios = <&gpio0 25
+                     (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+
+        /* Original touchscreen dimensions */
+        touchscreen-size-x = <240>;
+        touchscreen-size-y = <320>;
+
+        /* Initial touchscreen calibration */
+        min-x = <0>;
+        min-y = <0>;
+        max-x = <4000>;
+        max-y = <4000>;
+    };
+};
