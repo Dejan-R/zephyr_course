@@ -70,6 +70,18 @@ GPIO18 služi samo za demonstraciju. **Nije potrebno spojiti LED diodu.**
 
 ### Zašto `app.overlay`, a ne `boards/<board>.overlay`?
 
+U ovoj vježbi koristimo `app.overlay` jer želimo jednostavan, samostalan primjer Devicetree konfiguracije. Datoteka se nalazi
+u korijenu projekta i nije vezana uz naziv određene pločice.
+
+Zephyr podržava i konfiguracije specifične za pojedinu pločicu, primjerice `boards/<board>.overlay`. Takav pristup koristan je
+kada ista aplikacija podržava više razvojnih pločica, ali svaka zahtijeva drukčije GPIO pinove ili povezivanje periferije.
+
+Ako Zephyr automatski pronađe odgovarajući overlay u direktoriju `boards/`, neće automatski učitati i `app.overlay`. 
+Želimo li koristiti određene overlay datoteke zajedno, potrebno ih je izričito navesti kroz `DTC_OVERLAY_FILE` ili dodatne konfiguracijske mogućnosti.
+
+Tijekom izgradnje Zephyr ispisuje koje je overlay datoteke pronašao. Konačni spojeni Devicetree može se pregledati u `build/zephyr/zephyr.dts`.
+Za ovu početnu vježbu dovoljan je `app.overlay`, dok ćemo board-specific overlaye koristiti u složenijim primjerima.
+
 ## 4. Pristup podacima i modelu uređaja iz C programa
 
 ### Čitanje DeviceTree podataka
