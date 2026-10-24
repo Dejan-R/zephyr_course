@@ -1,10 +1,6 @@
 # Zephyr RTOS Course
 
-Praktični edukativni primjeri za **Zephyr RTOS**, programiranje u jeziku **C** i razvoj embedded sustava na platformi **ESP32**.
-
-Repozitorij je organiziran u tematske cjeline. Nastavne vježbe zasebni su Zephyr projekti s izvornim kodom, konfiguracijskim datotekama i vlastitim `README.md` datotekama koje sadrže cilj, objašnjenje, postupak izgradnje, zadatke i pitanja.
-
-Uz nastavne vježbe, repozitorij sadrži i demonstracijske projekte koji povezuju više hardverskih i softverskih komponenti.
+Primjeri za **Zephyr RTOS** razvoj embedded sustava na platformi **ESP32**.
 
 ## Instalacija razvojnog okruženja
 
