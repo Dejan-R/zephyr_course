@@ -1,0 +1,22 @@
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+/ {
+    aliases {
+        led1 = &fast_led;
+        led2 = &slow_led;
+    };
+
+    leds {
+        compatible = "gpio-leds";
+
+        fast_led: led_0 {
+            gpios = <&gpio0 18 GPIO_ACTIVE_HIGH>;
+            label = "LED1 Fast";
+        };
+
+        slow_led: led_1 {
+            gpios = <&gpio0 19 GPIO_ACTIVE_HIGH>;
+            label = "LED2 Slow";
+        };
+    };
+};

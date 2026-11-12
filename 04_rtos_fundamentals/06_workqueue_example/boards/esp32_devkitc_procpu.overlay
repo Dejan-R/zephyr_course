@@ -1,0 +1,24 @@
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+/ {
+    aliases {
+        led1 = &work_led;
+        sw0 = &work_button;
+    };
+
+    course-work-leds {
+        compatible = "gpio-leds";
+        work_led: led_0 {
+            gpios = <&gpio0 18 GPIO_ACTIVE_HIGH>;
+            label = "Workqueue LED GPIO18";
+        };
+    };
+
+    course-work-buttons {
+        compatible = "gpio-keys";
+        work_button: button_0 {
+            gpios = <&gpio0 27 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+            label = "Workqueue button GPIO27";
+        };
+    };
+};

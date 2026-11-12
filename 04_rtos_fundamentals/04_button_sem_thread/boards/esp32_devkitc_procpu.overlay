@@ -1,0 +1,16 @@
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+/ {
+    aliases {
+        sw0 = &rtos_button;
+    };
+
+    rtos-buttons {
+        compatible = "gpio-keys";
+
+        rtos_button: button_0 {
+            gpios = <&gpio0 27 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+            label = "RTOS button GPIO27";
+        };
+    };
+};
